@@ -1,0 +1,17 @@
+server:
+   port: 9091
+
+spring:
+   application:
+      name: flight-service
+   datasource:
+      url: jdbc:mysql://flight-db.cpomaxylaqzi.us-east-2.rds.amazonaws.com/flightdb
+      username: admin
+      password: adminadmin
+   jpa:
+      hibernate:
+         ddl-auto: update  
+eureka:
+   client:
+      serviceUrl:
+         defaultZone: http://ec2-18-189-20-2.us-east-2.compute.amazonaws.com:8761/Eureka

@@ -1,0 +1,40 @@
+package com.example.service;
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.example.model.user;
+import org.springframework.security.crypto.password.PasswordEncoder;
+@Service
+public class JwtUserDetailsService implements UserDetailsService{
+	String url="http://localhost:8989/user/userController/find/admin@gmail.com";
+	
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
+	public user user;
+	
+	public RestTemplate resttemplate = new RestTemplate();
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		user userobj = resttemplate.getForObject(url,user.class);
+		
+		/*if ("javainuse".equals(username)) {
+			return new User("javainuse", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
+					new ArrayList<>());
+		} else {
+			throw new UsernameNotFoundException("User not found with username: " + username);
+		}*/
+		if (userobj == null) {
+			throw new UsernameNotFoundException("User not found with username: " + username);
+		}
+		return new org.springframework.security.core.userdetails.User(userobj.getEmail(), bcryptEncoder.encode(user.getPassword()),
+				new ArrayList<>());
+	}
+}

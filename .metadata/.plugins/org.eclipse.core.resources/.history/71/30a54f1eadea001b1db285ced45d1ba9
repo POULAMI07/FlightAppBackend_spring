@@ -1,0 +1,13 @@
+package com.example.config;
+/*
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class CustomControllerAdvice {
+	@ExceptionHandler(value = Exception.class)
+    public ResponseEntity<CustomMessage> handleException(Exception e){
+        return ResponseEntity.status(200).body(new CustomMessage(204, e.getMessage()));
+    }
+}*/

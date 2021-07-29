@@ -1,0 +1,61 @@
+package com.example;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.example.controller.ManageAirlineController;
+import com.example.repository.AirlineRepository;
+
+import com.example.model.AirlineModel;
+
+@SpringBootTest
+class ApplicationTests {
+
+	 @Autowired
+	    private ManageAirlineController airlineController;
+
+	 
+
+	    @MockBean
+	    private AirlineRepository repository;
+
+	 
+
+	    @Test
+	    public void testAllAirlines() {
+	        Mockito.when(repository.findAll()).thenReturn(Arrays.asList(new AirlineModel(), new AirlineModel(), new AirlineModel()));
+	        List<AirlineModel> airline = airlineController.getAirlines();
+	        Assertions.assertSame(3, airline.size());
+	    }
+
+	 
+
+	    @Test
+	    public void saveAirlineTest() {
+	    	AirlineModel airline = new AirlineModel();
+	        airline.setId(100);
+	        airline.setAirlinename("Spicejet");
+	        airline.setContactAddress("HelloAddress");
+	        airline.setContactNum("9933556758");
+	        airline.setLogo("test");
+	        Mockito.when(airlineController.saveAirline(Mockito.any())).thenReturn(airline);
+	        assertEquals(airline, airlineController.saveAirline(airline));
+
+	 
+
+	    }
+	/*@Test
+	void contextLoads() {
+	}*/
+
+}

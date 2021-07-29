@@ -1,0 +1,23 @@
+server:
+   port: 8989
+
+spring:
+   application:
+      name: zuul
+      
+eureka:
+   client:
+      serviceUrl:
+         defaultZone: http://localhost:8761/eureka/
+        
+zuul:
+   ribbon:
+      ReadTimeout:12000000
+      SocketTimeout:3000000
+   routes:
+      FLIGHT-SERVICE:
+         path: /admin/**
+         url: FLIGHT-SERVICE
+      USER-SERVICE:
+         path: /user/**
+         url: USER-SERVICE
